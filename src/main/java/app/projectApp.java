@@ -16,19 +16,13 @@ public class projectApp extends Observable {
 
 
     public boolean checkAge(Employee employee) {
-            if (employee.getAge() >= 70) {
-                return false;
-            }
-        return true;
+        return employee.getAge() < 70;
     }
     //Tjekker om om initals opfylder max 4 initialer
     public boolean checkInitials(Employee employee) {
-            if (employee.getInitials().length() > 5) {
-                return false;
-                //Throw expection, find ud af hvordan man gør det****
-            }
-            return true;
-        }
+        //Throw expection, find ud af hvordan man gør det****
+        return employee.getInitials().length() <= 5;
+    }
 
 
     public boolean addEmployee(Employee employee) {
@@ -38,11 +32,8 @@ public class projectApp extends Observable {
                 employeeArrayList.add(employee);
 
             }
-            if (sizeOfEmpList < employeeArrayList.size()) {
-                return true;
-            }
-            return false;
-        }
+        return sizeOfEmpList < employeeArrayList.size();
+    }
     public Project createProject (String projectName, int id){
         Project newProject = new Project(projectName,id);
         projects.add(newProject);
