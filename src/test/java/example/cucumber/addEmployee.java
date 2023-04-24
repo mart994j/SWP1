@@ -1,5 +1,6 @@
 package example.cucumber;
 
+import app.OperationNotAllowedException;
 import domain.Employee;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -30,8 +31,12 @@ public class addEmployee {
     @Then("the employee has been added")
     public void add_the_employee_has_been_added() {
 
-        assertTrue(projectApp.addEmployee(employee));
-      
+        try {
+            assertTrue(projectApp.addEmployee(employee));
+        } catch (OperationNotAllowedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Given("that employee has more than {string} initials")

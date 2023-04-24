@@ -25,14 +25,20 @@ public class projectApp extends Observable {
     }
 
 
-    public boolean addEmployee(Employee employee) {
+    public boolean addEmployee(Employee employee) throws OperationNotAllowedException{
 
-            int sizeOfEmpList = employeeArrayList.size();
-            if (checkInitials(employee) && checkAge(employee)) {
-                employeeArrayList.add(employee);
+        int sizeOfEmpList = employeeArrayList.size();
+        if (checkInitials(employee) && checkAge(employee)) {
+            employeeArrayList.add(employee);
 
-            }
-        return sizeOfEmpList < employeeArrayList.size();
+        } else {
+            throw new OperationNotAllowedException("employee cannot be added");
+
+        }
+        if (sizeOfEmpList < employeeArrayList.size()) {
+            return true;
+        }
+        return false;
     }
     public Project createProject (String projectName, int id){
         Project newProject = new Project(projectName,id);
