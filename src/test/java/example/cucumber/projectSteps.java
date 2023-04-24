@@ -42,10 +42,13 @@ public int generateID() {
 
 @And("the project gets given a project startdate and enddate")
 	public void theProjectGetsGivenAProjectStartdateAndEnddate() {
+	throw new io.cucumber.java.PendingException();
 
 	}
 
 @Then("the project {string} is created successfully.")
 	public void theProjectIsCreatedSuccessfully(String arg0) {
-	}
+	throw new io.cucumber.java.PendingException();
+
+}
 }
