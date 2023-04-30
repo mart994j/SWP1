@@ -16,6 +16,12 @@ Feature: create project
       And the project gets given a project startdate and enddate
       And the project gets given a project id.
       Then the project "Project1" is created successfully.
+      
+      
+  Scenario: the end date of a project is changed to be sooner than the start date
+	Given the project with id 1 exists
+	When an employee edits the end date of the project to a date before the start date
+	Then I get the error message "The end date must be after the start date"
 
 
 
