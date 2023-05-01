@@ -1,6 +1,6 @@
 package example.cucumber;
 
-import app.Activity;
+import domain.Activity;
 
 public class ActivityHolder {
 	 private Activity activity;

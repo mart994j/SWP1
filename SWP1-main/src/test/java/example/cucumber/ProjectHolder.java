@@ -1,6 +1,6 @@
 package example.cucumber;
 
-import app.Project;
+import domain.Project;
 
 public class ProjectHolder {
 	  private Project project;

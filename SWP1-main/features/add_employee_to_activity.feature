@@ -4,10 +4,6 @@ Feature: add employee to activity
   Actor: Project leader
 
 
-
-
-
-
   #Scenario: Adding an employee to activity
     #Given that a project exist and has an activity
     #And that the project leader is logged in.
@@ -23,3 +19,5 @@ Feature: add employee to activity
    # Given that a project exist and has an activity
     #And that the project leader is logged in.
     #Then add employee with the name "Christian Edler", inital "CHED" and age "23" to the exisiting activity.
+
+

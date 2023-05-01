@@ -5,8 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import app.Activity;
-import app.Employee;
+import domain.Activity;
+import domain.Employee;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -50,7 +50,7 @@ public class createActivitySteps {
 	public void theProjectLeaderCreatesTheActivity(String initials, String name) {
 		assertTrue(projectHolder.getProject().getProjectLeader().getInitials().equals(initials));
 		Activity activity = new Activity(name,null,null,0);
-		projectHolder.getProject().addActivity(activity,initials);
+		projectHolder.getProject().addActivity(activity);
 	}
 
 	@Then("the activity {string} is created for the project")

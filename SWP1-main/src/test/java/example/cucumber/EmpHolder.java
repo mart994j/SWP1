@@ -1,6 +1,6 @@
 package example.cucumber;
 
-import app.Employee;
+import domain.Employee;
 
 public class EmpHolder {
     private Employee employee;
