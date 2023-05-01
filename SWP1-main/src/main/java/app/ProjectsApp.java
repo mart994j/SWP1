@@ -8,6 +8,7 @@ import domain.Employee;
 import domain.Project;
 
 public class ProjectsApp {
+	Project project;
 	DateServer dateServer = new DateServer();
 	public ArrayList<Project> projects = new ArrayList<>();
 
@@ -16,10 +17,10 @@ public class ProjectsApp {
 	public int projectCount = 0;
 
 	public Project createProject(String name) {
-		Project newProject = new Project(name, projectCount);
-		projects.add(newProject);
+		Project project = new Project(name, projectCount);
+		projects.add(project);
 		projectCount++;
-		return newProject;
+		return project;
 
 	}
 
