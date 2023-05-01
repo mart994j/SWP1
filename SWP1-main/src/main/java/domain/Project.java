@@ -8,14 +8,13 @@ public class Project {
     private String projectName;
     private Employee projectLeader;
     private int id;
-
-
-    ArrayList<Activity> activities = new ArrayList<Activity>();
+    private ArrayList<Activity> activities = new ArrayList<>();
 
 
 
     public Project(String projectName, int id){
         this.projectName = projectName;
+        
 
     }
 
@@ -42,17 +41,12 @@ public class Project {
         return projectLeader;
     }
 
-    public Project getProject(Project project){
-
-        return project;
-
+  
+    public void addActivityToProject(Activity activity){
+       activities.add(activity);
     }
     public List<Activity> getActivities() {
         return activities;
-    }
-
-    public void addActivityToProject(Activity activity){
-       activities.add(activity);
     }
 
 }
