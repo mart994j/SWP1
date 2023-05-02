@@ -33,7 +33,7 @@ public class ActivitySteps {
 		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
 		Project project = projectHolder.getProject();
 		
-        projectsApp.createProject("Project1");    
+        projectsApp.createProject("Project1", 0);    
         Activity activity = new Activity("name",null,null,0);
         projectsApp.getProjectWithName("Project1").addActivity(activity);
         if(projectsApp.projects.size()>0 && projectsApp.getProjectWithName("Project1").activities.size()>0){

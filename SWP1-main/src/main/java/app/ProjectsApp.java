@@ -11,19 +11,18 @@ import java.util.Observable;
 
 public class ProjectsApp extends Observable {
 	Project project;
+	int id;
 	DateServer dateServer = new DateServer();
 	private boolean adminLoggedIn = false;
 	public ArrayList<Project> projects = new ArrayList<>();
 
 	private ArrayList<Employee> employees = new ArrayList<>();
 
-	public int projectCount = 0;
 
 	////// Project things //////
-	public Project createProject(String name) {
-		Project project = new Project(name, projectCount);
+	public Project createProject(String name,int id) {
+		Project project = new Project(name, id);
 		projects.add(project);
-		projectCount++;
 		return project;
 
 	}

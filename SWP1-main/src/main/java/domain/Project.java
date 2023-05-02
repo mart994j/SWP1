@@ -14,9 +14,11 @@ public class Project {
 	private int projectNumber;
 	private Calendar dueDate;
 	private Calendar startDate;
+	private int id; 
+	
 
 	
-	public Project (String projectName, int projectCount) {
+	public Project (String projectName, int id) {
 		this.projectName = projectName;
 	}
 	public String getProjectName() {
@@ -37,8 +39,12 @@ public class Project {
 		return projectNumber;
 	}
 	public int getProjectId() {
-		return 123;
+		return id;
 	}
+	public void setProjectId(int id) {
+		this.id = id;
+	}
+	
 	public void addActivity(Activity activity)  {
 		activities.add(activity);
 		

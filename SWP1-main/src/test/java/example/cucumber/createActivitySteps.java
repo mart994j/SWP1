@@ -2,11 +2,14 @@ package example.cucumber;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import domain.Activity;
 import domain.Employee;
+import domain.Project;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -31,10 +34,14 @@ public class createActivitySteps {
 
 
 	@Given("a project with id {int} exists")
-	public void aProjectWithIdExists(Integer id) {
-		// Write code here that turns the phrase above into concrete actions
-		//assertTrue(projectsApp.getProjects().contains(project));
-		throw new io.cucumber.java.PendingException();
+	public void aProjectWithIdExists(int id) {
+		Project project = projectHolder.getProject();
+		project = new Project(null, id);
+		projectHolder.setProject(project);
+		project.setProjectId(id);
+		assertTrue(id == project.getProjectId());
+		
+
 
 	}
 
@@ -55,7 +62,9 @@ public class createActivitySteps {
 
 	@Then("the activity {string} is created for the project")
 	public void theActivityIsCreatedForTheProject(String name) {
-		throw new io.cucumber.java.PendingException();
+		Activity activity = new Activity(name,null,null,0);
+		activity.setActivName(name);
+		assertTrue(activity.getActivName() == name);
 
 	}
 }

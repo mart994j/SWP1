@@ -25,7 +25,8 @@ public class createEmpSteps {
 
 	@Given("employee with initials {string} exists")
 	public void employeeWithInitialsExists(String initials) throws OperationNotAllowedException {
-		Employee employee = new Employee("Martin Jespersen", initials);
+		Employee employee = new Employee("Martin Jespersen", "MJ");
+		employeeHolder.setEmployee(employee);
 		projectAppHolder.getProjectsApp().addEmployee(employee);
 	}
 

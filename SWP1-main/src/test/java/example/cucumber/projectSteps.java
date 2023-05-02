@@ -25,7 +25,7 @@ public class projectSteps {
 	public void that_the_company_get_a_project_with_the_name(String name) throws Exception {
 		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
 		Project project = projectHolder.getProject();
-		project = new Project(name, projectsApp.projectCount);
+		project = new Project(name, 0);
         projectHolder.setProject(project);
 
 	}
@@ -33,7 +33,7 @@ public class projectSteps {
 	public void an_employee_creates_the_project() {
 		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
 		Project project = projectHolder.getProject();
-		projectsApp.createProject(project.getProjectName());
+		projectsApp.createProject(project.getProjectName(),project.getProjectId());
 
 
 	}
