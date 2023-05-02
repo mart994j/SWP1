@@ -7,7 +7,9 @@ import domain.Employee;
 import domain.Project;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -56,4 +58,61 @@ public class ActivitySteps {
 		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
         projectsApp.getActivityWithName("Activity1","Project1").assignEmp(employee);
     }
+    
+    
+    
+    
+    
+    @Given("the project with an id {int} exists")
+    public void theProjectWithAnIdExists(Integer id) {
+        ProjectsApp projectApp = projectAppHolder.getProjectsApp();
+        Project project = projectHolder.getProject();
+        project = new Project(null, id);
+        project.setProjectId(id);
+        
+    }
+
+    @Given("the activity with {string} exists for a project")
+    public void theActivityWithExistsForAProject(String name) {
+    	ProjectsApp projectApp = projectAppHolder.getProjectsApp();
+        Project project = projectHolder.getProject();
+        project = new Project("TestProject", 0);
+        project.setProjectName("TestProject");
+        Activity activity = new Activity(name, null, null, 0);
+        project.addActivityToProject(activity);
+    }
+
+    @When("the projectleader edits the time budget to {int}")
+    public void theProjectleaderEditsTheTimeBudgetTo(Integer int1) {
+        Project project = projectHolder.getProject();
+        Employee projectLeader = employeeHolder.getEmployee();
+        Activity activity = activityHolder.getActivity();
+        project = new Project("name", int1);
+        activity = new Activity(null, null, null, int1);
+        project.addActivity(activity);
+        project.setProjectLeader(projectLeader);
+        activity.setExpectedAmountOfHours(int1);
+    }
+    
+    @Then("the expected time budget changes	to {int}")
+    public void theExpectedTimeBudgetChangesTo(Integer int1) {
+        Activity activity = activityHolder.getActivity();
+        activity = new Activity(null, null, null, int1);
+        int expectedBudget = activity.getExpectedAmountOfHours();
+        assertEquals(expectedBudget, activity.getExpectedAmountOfHours());
+    }
+    
+    @Then("I get the error message {string}")
+    public void iGetTheErrorMessage(String errorMessage) {
+    	ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+    	errorMessageHolder.setErrorMessage(errorMessage);
+    	
+        assertEquals("Error message is incorrect", errorMessage, errorMessageHolder.getErrorMessage());
+    }
+    
+   
+    
+    
+    
+    
 }

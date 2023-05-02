@@ -10,3 +10,9 @@ Scenario: Create employee successfully
     Then I get the name "Martin Jespersen" and the initials "MJ"
     And the initials "MJ" is in the initials list
     And the employeelist conatins the employee
+    
+ 
+ Scenario: Fail creating an employee with the same initials
+ 	Given an employee with the initials "MJ" exists
+ 	When the actor tries to add a new employee with the initials "MJ"
+ 	Then the error message "There is already an employee with the same initials"

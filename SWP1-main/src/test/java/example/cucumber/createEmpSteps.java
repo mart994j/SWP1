@@ -65,5 +65,42 @@ public class createEmpSteps {
 		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
 		assertTrue("Employee not found in the list", projectsApp.getEmployees().contains(employee));
 	}
+	
+	
+	
+	
+	
+
+@Given("an employee with the initials {string} exists")
+public void anEmployeeWithTheInitialsExists(String initials) {
+	Employee employee = employeeHolder.getEmployee();
+	ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
+	employee = new Employee(null, initials);
+	employee.setInitials(initials);
+	assertTrue(employee.getInitials() == initials);
+
+}
+
+@When("the actor tries to add a new employee with the initials {string}")
+public void theActorTriesToAddANewEmployeeWithTheInitials(String initials) {
+	try {
+        Employee employee = new Employee(null, initials);
+        projectAppHolder.getProjectsApp().addEmployee(employee);
+    } catch (OperationNotAllowedException ex) {
+        errorMessageHolder.setErrorMessage(ex.getMessage());
+    }
+}
+
+@Then("the error message {string}")
+public void theErrorMessage(String errorMessage) {
+	ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+	errorMessageHolder.setErrorMessage(errorMessage);
+	
+    assertEquals("Error message is incorrect", errorMessage, errorMessageHolder.getErrorMessage());
+
+}
+	
+	
+	
 
 }

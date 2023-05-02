@@ -29,6 +29,10 @@ public class Activity {
 		return expectedAmountOfHours;
 	}
     
+    public void setExpectedAmountOfHours(int expectedAmountOfHours) {
+    	this.expectedAmountOfHours = expectedAmountOfHours;
+    }
+    
     public List<Employee> getAssignedEmployees() {
 		return employees;
 

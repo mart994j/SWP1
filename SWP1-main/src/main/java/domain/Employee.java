@@ -21,5 +21,9 @@ public class Employee {
 	public String getInitials() {
 		return initials;
 	}
+
+	public void setInitials(String initials) {
+		this.initials = initials;
+	}
 	
 }

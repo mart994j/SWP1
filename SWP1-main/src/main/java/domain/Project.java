@@ -21,6 +21,11 @@ public class Project {
 	public Project (String projectName, int id) {
 		this.projectName = projectName;
 	}
+	
+	public void addActivityToProject(Activity activity) {
+		activities.add(activity);
+	}
+	
 	public String getProjectName() {
 		return projectName;
 	}
