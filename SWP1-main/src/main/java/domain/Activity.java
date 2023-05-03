@@ -11,7 +11,8 @@ public class Activity {
 	private GregorianCalendar startW;
 	private GregorianCalendar endW;
 	private int expectedAmountOfHours;
-    private List<Employee> employees = new ArrayList<>();
+    private int hoursSpent;
+    public List<Employee> employees = new ArrayList<>();
 
     
     public Activity(String activName, GregorianCalendar startW, GregorianCalendar endW, int expectedAmountOfHours) {
@@ -23,6 +24,10 @@ public class Activity {
     
     public String getActivName() {
     	return activName;
+    }
+
+    public int getHoursSpent() {
+        return this.hoursSpent;
     }
     
     public int getExpectedAmountOfHours() {
@@ -76,8 +81,8 @@ public class Activity {
     	employees.add(employee);
     }
     
-    
-    
+
+
     
     
 	
