@@ -117,7 +117,7 @@ public class ProjectsApp extends Observable {
 		notifyObservers();
 	}
 
-	private void checkAdminLoggedIn() throws OperationNotAllowedException {
+	public void checkAdminLoggedIn() throws OperationNotAllowedException {
 		if (!adminLoggedIn()) {
 			throw new OperationNotAllowedException("Admin login required");
 		}
