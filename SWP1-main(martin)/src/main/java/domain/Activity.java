@@ -5,8 +5,10 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import app.OperationNotAllowedException;
+import app.ProjectsApp;
 
 public class Activity {
+    ProjectsApp projectsApp;
 	private String activName;
 	private GregorianCalendar startW;
 	private GregorianCalendar endW;
@@ -72,8 +74,10 @@ public class Activity {
     	this.activName = activName;
     }
     
-    public void assignEmp(Employee employee) {
-    	employees.add(employee);
+    public void assignEmp(Employee employee) throws OperationNotAllowedException {
+        employees.add(employee);
+
+
     }
     
     

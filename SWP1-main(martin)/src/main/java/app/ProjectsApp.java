@@ -19,8 +19,7 @@ public class ProjectsApp extends Observable {
 	private boolean adminLoggedIn = false;
 	public ArrayList<Project> projects = new ArrayList<>();
 
-	public ArrayList<Activity> empActvities = new ArrayList<Activity>();
-
+	public ArrayList<Activity> activity = new ArrayList<>();
 	private ArrayList<Employee> employees = new ArrayList<>();
 
 
@@ -84,6 +83,15 @@ public class ProjectsApp extends Observable {
 		}
 		employees.add(employee);
 		return true;
+	}
+
+	public Employee getEmployeeWithName(String name){
+		for (Employee e : employees) {
+			if(name.equals(e.getName())){
+				return e;
+			}
+		}
+		return null;
 	}
 
 	public List<String> getInitialsList() {

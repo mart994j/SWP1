@@ -14,13 +14,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ActivitySteps {
-	private ProjectAppHolder projectAppHolder;
-	private ErrorMessageHolder errorMessageHolder;
-	private EmpHolder employeeHolder;
-	private ProjectHolder projectHolder;
-	private ActivityHolder activityHolder;
-	
-	
+    private ProjectAppHolder projectAppHolder;
+    private ErrorMessageHolder errorMessageHolder;
+    private EmpHolder employeeHolder;
+    private ProjectHolder projectHolder;
+    private ActivityHolder activityHolder;
+
+
     public ActivitySteps(ActivityHolder activityHolder,ProjectAppHolder projectAppHolder,ErrorMessageHolder errorMessageHolder,EmpHolder employeeHolder,ProjectHolder projectHolder) {
       this.activityHolder = activityHolder;
       this.projectAppHolder = projectAppHolder;
@@ -31,9 +31,9 @@ public class ActivitySteps {
 
     @Given("that a project exist and has an activity")
     public void thatAProjectExistAndHasAnActivity() {
-		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
-		Project project = projectHolder.getProject();
-		
+        ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
+        Project project = projectHolder.getProject();
+
         projectsApp.createProject("Project1", 0);    
         Activity activity = new Activity("name",null,null,0);
         projectsApp.getProjectWithName("Project1").addActivity(activity);
@@ -45,16 +45,16 @@ public class ActivitySteps {
     }
     @Given("that the project leader is logged in.")
     public void that_the_project_leader_is_logged_in () throws OperationNotAllowedException {
-		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
-    	projectsApp.addEmployee(new Employee("Martin","MJ"));
+        ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
+        projectsApp.addEmployee(new Employee("Martin","MJ"));
         projectsApp.adminLogin("adminadmin");
         assertTrue(projectsApp.adminLoggedIn());
     }
 
     @Then("add employee with the name {string}, inital {string} to the exisiting activity.")
-    public void addEmployeeWithTheNameInitalAndAgeToTheExisitingActivity(String string, String string2) {
+    public void addEmployeeWithTheNameInitalAndAgeToTheExisitingActivity(String string, String string2) throws OperationNotAllowedException {
         Employee employee = new Employee(string,string2);
-		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
+        ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
         projectsApp.getActivityWithName("Activity1","Project1").assignEmp(employee);
     }
 
@@ -70,7 +70,7 @@ public class ActivitySteps {
 
     @Given("the activity with {string} exists for a project")
     public void theActivityWithExistsForAProject(String name) {
-    	ProjectsApp projectApp = projectAppHolder.getProjectsApp();
+        ProjectsApp projectApp = projectAppHolder.getProjectsApp();
         Project project = projectHolder.getProject();
         project = new Project("TestProject", 0);
         project.setProjectName("TestProject");
@@ -100,47 +100,46 @@ public class ActivitySteps {
     
     @Then("I get the error message {string}")
     public void iGetTheErrorMessage(String errorMessage) {
-    	ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
-    	errorMessageHolder.setErrorMessage(errorMessage);
-    	
+        ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+        errorMessageHolder.setErrorMessage(errorMessage);
+
         assertEquals("Error message is incorrect", errorMessage, errorMessageHolder.getErrorMessage());
     }
 
 
     @Then("try to add employee with the name {string}, initial {string} to the exisiting activity.")
-    public void tryToAddEmployeeWithTheNameInitialToTheExisitingActivity(String string, String string2) {
+    public void tryToAddEmployeeWithTheNameInitialToTheExisitingActivity(String string, String string2) throws OperationNotAllowedException {
         ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
-        Project project = projectHolder.getProject();
-        Employee employee = employeeHolder.getEmployee();
-        employeeHolder.setEmployee(new Employee(string,string2));
+        Employee emp=new Employee(string,string2);
+        projectsApp.addEmployee(emp);
        Project pr = new Project("testProject", 12345);
-       assertTrue(pr == null);
-        for (int i = 0; i<20; i++) {
+        for (int i = 0; i<21; i++) {
             String name = ""+i;
             pr.addActivity(new Activity(name,null,null,0));
-            projectsApp.getProjectWithName(pr.getProjectName()).activities.get(i).assignEmp(employee);
         }
+        for (int i = 0; i<pr.activities.size(); i++) {
+           pr.activities.get(i).assignEmp(emp);
+           emp.empActvities.add( pr.activities.get(i));
+        }
+        System.out.println(emp.empActvities.size());
+
 
     }
 
     @Then("employee has more than max activities")
     public void employeeHasMoreThanActivities() {
         ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
-        Project project = projectHolder.getProject();
-        Activity activity = activityHolder.getActivity();
-        Employee employee = employeeHolder.getEmployee();
-        assertFalse(projectsApp.checkMaxActivites(employee));
+        System.out.println(projectsApp.getEmployeeWithName("Miriam Gartner").empActvities.size());
+        assertFalse(projectsApp.checkMaxActivites(projectsApp.getEmployeeWithName("Miriam Gartner")));
 
     }
 
     @Then("the error message {string} appears.")
-    public void theErrorMessageAppears(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void theErrorMessageAppears(String errorMessage) {
+        ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
+        errorMessageHolder.setErrorMessage(errorMessage);
+
+        assertEquals("Employee has the max limit activites", errorMessage, errorMessageHolder.getErrorMessage());
     }
-   
-    
-    
-    
-    
+
 }

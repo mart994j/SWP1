@@ -10,7 +10,7 @@ import java.util.Calendar;
 public class Project {
 	private String projectName;
 	private Employee projectLeader;
-	public ArrayList<Activity> activities = new ArrayList<>();
+	public ArrayList<Activity> activities = new ArrayList<Activity>();
 	private int projectNumber;
 	private Calendar dueDate;
 	private Calendar startDate;
