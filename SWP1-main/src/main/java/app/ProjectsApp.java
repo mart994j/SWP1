@@ -132,6 +132,9 @@ public class ProjectsApp extends Observable {
 		// TODO Auto-generated method stub
 		for (Employee employee:employees) {
 			userloggedin = initials.equals(employee.getInitials());
+			if(userloggedin != false) {
+				return userloggedin;
+			}
 		}
 		return userloggedin;
 	}
@@ -196,7 +199,7 @@ public class ProjectsApp extends Observable {
 		notifyObservers();
 	}
 
-	private void checkAdminLoggedIn() throws OperationNotAllowedException {
+	public void checkAdminLoggedIn() throws OperationNotAllowedException {
 		if (!adminLoggedIn()) {
 			throw new OperationNotAllowedException("Admin login required");
 		}

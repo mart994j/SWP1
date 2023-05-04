@@ -11,6 +11,7 @@ public class Project {
 	private String projectName;
 	private Employee projectLeader;
 	public ArrayList<Activity> activities = new ArrayList<>();
+	public ArrayList<Employee> employees = new ArrayList<>();
 	private int projectNumber;
 	private Calendar dueDate;
 	private Calendar startDate;
@@ -57,10 +58,10 @@ public class Project {
 	}
 	
 	
-	private void projectLeaderCheck(String projectLeaderInit) throws NotProjectLeaderException {
+	public void projectLeaderCheck(String projectLeaderInit) throws NotProjectLeaderException {
 		if (this.projectLeader == null || projectLeaderInit == null
                 || !this.projectLeader.getInitials().equals(projectLeaderInit)){
-			throw new NotProjectLeaderException("Du er ikke project leader!");
+			throw new NotProjectLeaderException("You are not the Project Leader");
 		}
 	}
 	
