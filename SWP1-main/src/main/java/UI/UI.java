@@ -96,8 +96,8 @@ public class UI {
             System.out.println(i+1 + ". " + app.projects.get(selectionProject-1).activities.get(selectionActivity-1).employees.get(i).getName());
         }
     }
-    public void printActivities(ProjectsApp app, String input) {
-        int selection = Integer.parseInt(input);
+    public void printActivities(ProjectsApp app, int selection) {
+       // int selection = Integer.parseInt(input);
             System.out.println("Listing all Activities in Project: " + app.projects.get(selection-1).getProjectName());
             System.out.println("0. Back");
             for (int i = 0; i < app.projects.get(selection - 1).activities.size(); i++) {
@@ -222,25 +222,44 @@ public class UI {
                                         System.out.println("Please name the activity");
                                         input = scanner.nextLine();
                                         String name = input;
-
+                                        int startW;
+                                        int dueW;
+                                        int hourBudget;
                                         System.out.println("Please enter the starting week of the activity");
                                         input = scanner.nextLine();
-                                        String startW = input;
+                                        if(input.matches("\\d+")) {
+                                            String startWeek = input;
+                                            startW = Integer.parseInt(startWeek);
+                                        } else {
+                                            System.out.println("Input is not an integer, please restart");
+                                            break;
+                                        }
+
 
                                         System.out.println("Please enter the week the activity is due");
                                         input = scanner.nextLine();
-                                        String dueW = input;
-
-
+                                        if(input.matches("\\d+")) {
+                                            String dueWeek = input;
+                                            dueW = Integer.parseInt(dueWeek);
+                                        } else {
+                                            System.out.println("Input is not an integer, please restart");
+                                            break;
+                                        }
                                         System.out.println("Please enter the hour budget of the activity");
                                         input = scanner.nextLine();
-                                        int hourBudget = Integer.parseInt(input);
-                                        GregorianCalendar startWeek = ui.dateConverter(2023, Integer.parseInt(startW));
-                                        GregorianCalendar endWeek = ui.dateConverter(2023, Integer.parseInt(dueW));
+                                        if(input.matches("\\d+")) {
+                                            String dueWeek = input;
+                                            hourBudget = Integer.parseInt(dueWeek);
+                                        } else {
+                                            System.out.println("Input is not an integer, please restart");
+                                            break;
+                                        }
+                                        GregorianCalendar startWeek = ui.dateConverter(2023, startW);
+                                        GregorianCalendar endWeek = ui.dateConverter(2023, dueW);
                                         app.projects.get(selection - 1).addActivity(new Activity(name, startWeek, endWeek, hourBudget));
                                         break;
                                     case "2":
-                                        ui.printActivities(app, input);
+                                        ui.printActivities(app, selection);
                                         System.out.println("Select an activity");
                                         input = scanner.nextLine();
                                         if(input.equals("0")) {
