@@ -13,6 +13,7 @@ public class ProjectsApp extends Observable {
 	Project project;
 	int id;
     private boolean empexist;
+    private boolean activexist;
 
 	DateServer dateServer = new DateServer();
 	private boolean adminLoggedIn = false;
@@ -140,6 +141,33 @@ public class ProjectsApp extends Observable {
 		
 	}
 	////// Activity things //////
+	public List<String> getActivList() {
+        List<String> activInit = new ArrayList<>();
+        for (Activity a : project.activities) {
+            activInit.add(a.getActivName());
+        }
+        return activInit;
+    }
+
+    public boolean activExists (String name) {
+		if (getActivList().contains(name)) {
+            activexist=true;
+        } else {
+            activexist=false;
+        }
+        return activexist;
+    }
+
+    public boolean deleteAct (String name) {
+        int remp=getActivList().indexOf(name);
+        project.activities.remove(remp);
+        activExists(name);
+        return activexist;
+    }
+	
+	
+	
+	
 	public Activity getActivityWithName(String activityName, String projectName) {
 		for (Activity a: getProjectWithName(projectName).activities) {
 			if(a.getActivName().equals(activityName));

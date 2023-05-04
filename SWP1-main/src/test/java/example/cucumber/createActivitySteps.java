@@ -40,8 +40,6 @@ public class createActivitySteps {
 		projectHolder.setProject(project);
 		project.setProjectId(id);
 		assertTrue(id == project.getProjectId());
-		
-
 
 	}
 

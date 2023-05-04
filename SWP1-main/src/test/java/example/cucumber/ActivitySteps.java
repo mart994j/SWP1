@@ -29,7 +29,6 @@ public class ActivitySteps {
       this.errorMessageHolder = errorMessageHolder;
     }
 
-
     @Given("that a project exist and has an activity")
     public void thatAProjectExistAndHasAnActivity() {
 		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
