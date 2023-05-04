@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Optional;
 import app.ActivityNotFound;
 import app.NotProjectLeaderException;
+import app.ProjectsApp;
+
 import java.util.Calendar;
 
 
 public class Project {
 	private String projectName;
 	private Employee projectLeader;
-	public ArrayList<Activity> activities = new ArrayList<>();
+	public ArrayList<Activity> activities = new ArrayList<Activity>();
 	private int projectNumber;
+	ProjectsApp projectsApp;
 	private Calendar dueDate;
 	private Calendar startDate;
 
@@ -40,7 +43,11 @@ public class Project {
 		return 123;
 	}
 	public void addActivity(Activity activity)  {
+		if(activity != null) {
 		activities.add(activity);
+
+			//projectsApp.activity.add(activity);
+		}
 		
 	}
 	
@@ -70,26 +77,4 @@ public class Project {
 		return dueDate;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

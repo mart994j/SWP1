@@ -5,12 +5,16 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import app.OperationNotAllowedException;
+import app.ProjectsApp;
 
 public class Activity {
 	private String activName;
 	private GregorianCalendar startW;
 	private GregorianCalendar endW;
 	private int expectedAmountOfHours;
+    Employee employee;
+    ProjectsApp projectsApp;
+
     private List<Employee> employees = new ArrayList<>();
 
     
@@ -69,7 +73,11 @@ public class Activity {
     }
     
     public void assignEmp(Employee employee) {
-    	employees.add(employee);
+        if (!projectsApp.checkMaxActivites(employee)) {
+            return;
+        }
+        employees.add(employee);
+
     }
     
     
