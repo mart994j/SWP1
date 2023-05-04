@@ -6,8 +6,6 @@ import app.ProjectsApp;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 public class UI {
-
-
     public void pause() {
         try {
             // Wait 2 seconds
@@ -43,7 +41,8 @@ public class UI {
             System.out.println(i+1 + ". " + "Name: " + app.getEmployees().get(i).getName());
         }
     }
-    public void printProjectOptions() {
+    public void printProjectOptions(ProjectsApp app, int projectSelection) {
+        System.out.println("Viewing Project: " + app.projects.get(projectSelection-1).getProjectName());
         System.out.println("Please select a option");
         System.out.println("0. Back");
         System.out.println("1. Add Activity");
@@ -53,7 +52,9 @@ public class UI {
         System.out.println("5. View time Spent");
         System.out.println("6. Set Project Leader");
     }
-    public void printActivityOptions() {
+    public void printActivityOptions(ProjectsApp app, int projectSelection, int activitySelection) {
+        System.out.println("Viewing Project: " + app.projects.get(projectSelection-1).getProjectName());
+        System.out.println("Viewing Activity: " + app.projects.get(projectSelection-1).activities.get(activitySelection-1).getActivName());
         System.out.println("Please select an option");
         System.out.println("0. Back");
         System.out.println("1. Add Employee");
@@ -70,7 +71,7 @@ public class UI {
         int selection = Integer.parseInt(input);
         if (selection > 0 && selection <= app.projects.size()) {
             System.out.println("0. Back");
-            printProjectOptions();
+         //   printProjectOptions(app);
             input = scanner.nextLine();
         } else {
             System.out.println("Invalid input, please enter a valid project number");
@@ -80,6 +81,11 @@ public class UI {
     //Project.java needs a way to return employees.
     public void printProjectEmployees(ProjectsApp app, int selection) {
         System.out.println("Listing all Employees in project: " + app.projects.get(selection-1).getProjectName());
+        if(app.projects.get(selection-1).getProjectLeader()!=null) {
+            System.out.println("Project Leader is: " + app.projects.get(selection-1).getProjectLeader().getName());
+        } else {
+            System.out.println("Project does not have a Project Leader");
+        }
         for (int i = 0; i < app.projects.get(selection-1).employees.size(); i++) {
             System.out.println(i+1 + ". " + app.projects.get(selection-1).employees.get(i).getName());
         }
@@ -156,7 +162,7 @@ public class UI {
         app.projects.get(1).addActivity(new Activity("Activity 2.1",startWeek1,endWeek1,5));
 
         ////////////////////////////////////////////////////////////
-        // Create a Scanner object to read input from the command line
+        // Create a Scanner object to read input from the user
         Scanner scanner = new Scanner(System.in);
         // Prompt the user for their initials
         System.out.println("Welcome to Softwarefirmaet A/S!");
@@ -207,7 +213,7 @@ public class UI {
                                 if(input.equals("0")) {
                                     break;
                                 }
-                                ui.printProjectOptions();
+                                ui.printProjectOptions(app,selection);
                                 input = scanner.nextLine();
                                 switch (input) {
                                     case "0":
@@ -229,7 +235,6 @@ public class UI {
                                         System.out.println("Please enter the hour budget of the activity");
                                         input = scanner.nextLine();
                                         int hourBudget = Integer.parseInt(input);
-
                                         GregorianCalendar startWeek = ui.dateConverter(2023, Integer.parseInt(startW));
                                         GregorianCalendar endWeek = ui.dateConverter(2023, Integer.parseInt(dueW));
                                         app.projects.get(selection - 1).addActivity(new Activity(name, startWeek, endWeek, hourBudget));
@@ -244,11 +249,9 @@ public class UI {
                                         }
                                         int selectActivity = Integer.parseInt(input);
                                         if(selectActivity > 0 && selectActivity <= app.projects.get(selection-1).activities.size()) {
-                                            System.out.println("Viewing activity: " + app.projects.get(selection-1).activities.get(selectActivity-1).getActivName());
-
                                             // Activity menu
                                             while(true) {
-                                                ui.printActivityOptions();
+                                                ui.printActivityOptions(app,selection,selectActivity);
                                                 input = scanner.nextLine();
                                                 if(input.equals("0")) {
                                                     input="999999";
@@ -342,8 +345,8 @@ public class UI {
                                         input = scanner.nextLine();
                                         int selectProjectLeader = Integer.parseInt(input);
                                         if (selectProjectLeader > 0 && selectProjectLeader <= app.getEmployees().size()) {
-                                            app.projects.get(selectProjectLeader-1).employees.add(app.getEmployees().get(selectProjectLeader-1));
-                                            app.projects.get(selectProjectLeader-1).setProjectLeader(app.getEmployees().get(selectProjectLeader-1));
+                                            app.projects.get(selection-1).employees.add(app.getEmployees().get(selectProjectLeader-1));
+                                            app.projects.get(selection-1).setProjectLeader(app.getEmployees().get(selectProjectLeader-1));
                                         } else {
                                             System.out.println("Invalid employee number, " + input + ", please try again");
                                             ui.pause();
