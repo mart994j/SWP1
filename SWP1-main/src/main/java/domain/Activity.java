@@ -37,7 +37,11 @@ public class Activity {
     public void setExpectedAmountOfHours(int expectedAmountOfHours) {
     	this.expectedAmountOfHours = expectedAmountOfHours;
     }
-    
+
+    public void addHoursSpent(int hours) {
+        this.hoursSpent+=hours;
+    }
+
     public List<Employee> getAssignedEmployees() {
 		return employees;
 

@@ -13,7 +13,7 @@ public class UI {
             // Wait 2 seconds
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            // Handle the exception
+
         }
     }
     public GregorianCalendar dateConverter(int year, int weekNumber) {
@@ -86,16 +86,27 @@ public class UI {
     }
     public void printActivityEmployees(ProjectsApp app, int selectionProject, int selectionActivity) {
         System.out.println("Listing all Employees in Activity: " + app.projects.get(selectionProject-1).activities.get(selectionActivity-1).getActivName());
-        for (int i = 0; i < app.projects.get(selectionProject-1).activities.get(selectionActivity).employees.size(); i++) {
-            System.out.println(i+1 + ". " + app.projects.get(selectionProject-1).activities.get(selectionActivity).employees.get(i).getName());
+        for (int i = 0; i < app.projects.get(selectionProject-1).activities.get(selectionActivity-1).employees.size(); i++) {
+            System.out.println(i+1 + ". " + app.projects.get(selectionProject-1).activities.get(selectionActivity-1).employees.get(i).getName());
         }
     }
     public void printActivities(ProjectsApp app, String input) {
         int selection = Integer.parseInt(input);
             System.out.println("Listing all Activities in Project: " + app.projects.get(selection-1).getProjectName());
+            System.out.println("0. Back");
             for (int i = 0; i < app.projects.get(selection - 1).activities.size(); i++) {
-                System.out.println((i + 1) + ": " + app.projects.get(i).activities.get(i).getActivName());
+                System.out.println((i + 1) + ": " + app.projects.get(selection-1).activities.get(i).getActivName());
             }
+    }
+    public int printTimeSpentActivity(ProjectsApp app, int selectionProject, int selectionActivity) {
+       return app.projects.get(selectionProject-1).activities.get(selectionActivity-1).getHoursSpent();
+    }
+    public int printTimeSpentProject(ProjectsApp app, int selectionProject, int selectionActivity) {
+        int sum = 0;
+        for(int i = 0; i < app.projects.get(selectionProject-1).activities.size(); i++) {
+            sum += app.projects.get(selectionProject-1).activities.get(selectionActivity-1).getHoursSpent();
+        }
+        return sum;
     }
     public void viewProjects(ProjectsApp app) {
         String input;
@@ -154,11 +165,12 @@ public class UI {
         String input = scanner.nextLine();
         // Write the user's input to the console
 
-        //login with credentials
-        //userlogin
+        // login with credentials
+        // userlogin
         if(app.userLogin(input)) {
             System.out.println("Hello, " + input + "!");
             ui.pause();
+            // Main menu
             while (true) {
                 ui.printMainOptions();
                 input = scanner.nextLine();
@@ -190,6 +202,7 @@ public class UI {
                         // it is necessary to parse to int in order to control that the user input is not out of bounds with the projects list
                         int selection = Integer.parseInt(input);
                         if (selection > 0 && selection <= app.projects.size()) {
+                            // Project menu
                             while(true) {
                                 if(input.equals("0")) {
                                     break;
@@ -222,36 +235,57 @@ public class UI {
                                         app.projects.get(selection - 1).addActivity(new Activity(name, startWeek, endWeek, hourBudget));
                                         break;
                                     case "2":
-                                        System.out.println("0. Back");
                                         ui.printActivities(app, input);
-                                        ui.pause();
                                         System.out.println("Select an activity");
                                         input = scanner.nextLine();
+                                        if(input.equals("0")) {
+                                            input="99999";
+                                            break;
+                                        }
                                         int selectActivity = Integer.parseInt(input);
-                                        if(selectActivity <= app.projects.get(selection-1).activities.size()) {
-                                            ui.printActivityOptions();
-                                            input = scanner.nextLine();
-                                            switch(input) {
-                                                case "0":
-                                                    input=null;
-                                                    break;
-                                                case "1":
-                                                    ui.printAppEmployees(app);
-                                                    System.out.println("Please select an Employee");
-                                                    input = scanner.nextLine();
-                                                    int selectedEmployee = Integer.parseInt(input);
-                                                    app.projects.get(selection-1).activities.get(selectActivity-1).employees.add(app.getEmployees().get(selectedEmployee-1));
-                                                    System.out.println("Employee added!");
-                                                    ui.pause();
-                                                    break;
-                                                case "2":
-                                                    ui.printAppEmployees(app);
-                                                case "3":
-                                                case "4":
+                                        if(selectActivity > 0 && selectActivity <= app.projects.get(selection-1).activities.size()) {
+                                            System.out.println("Viewing activity: " + app.projects.get(selection-1).activities.get(selectActivity-1).getActivName());
 
-                                                default:
-                                                    System.out.println("Unexpected input: " + input +", try again.");
+                                            // Activity menu
+                                            while(true) {
+                                                ui.printActivityOptions();
+                                                input = scanner.nextLine();
+                                                if(input.equals("0")) {
+                                                    input="999999";
                                                     break;
+                                                }
+                                                switch (input) {
+                                                    case "0":
+                                                        break;
+                                                    case "1":
+                                                        ui.printAppEmployees(app);
+                                                        System.out.println("Please select an Employee");
+                                                        input = scanner.nextLine();
+                                                        int selectedEmployee = Integer.parseInt(input);
+                                                        app.projects.get(selection - 1).activities.get(selectActivity - 1).employees.add(app.getEmployees().get(selectedEmployee - 1));
+                                                        System.out.println("Employee added!");
+                                                        ui.pause();
+                                                        break;
+                                                    case "2":
+                                                        ui.printActivityEmployees(app, selection, selectActivity);
+                                                        break;
+                                                    case "3":
+                                                        System.out.println("Please enter hours spent");
+                                                        input = scanner.nextLine();
+                                                        int hours = Integer.parseInt(input);
+                                                        app.projects.get(selection-1).activities.get(selectActivity-1).addHoursSpent(hours);
+                                                        System.out.println(hours + " Hours added,");
+                                                        break;
+                                                    case "4":
+                                                        System.out.println("Time data for activity: " + app.projects.get(selection-1).activities.get(selectActivity-1).getActivName());
+                                                        System.out.println("Budget hours on activity: " + app.projects.get(selection-1).activities.get(selectActivity-1).getExpectedAmountOfHours());
+                                                        System.out.println("Hours Spent on activity: " + ui.printTimeSpentActivity(app,selection,selectActivity));
+                                                        ui.pause();
+                                                        break;
+                                                    default:
+                                                        System.out.println("Unexpected input: " + input + ", try again.");
+                                                        break;
+                                                }
                                             }
                                         }
                                         else {
@@ -259,6 +293,7 @@ public class UI {
                                             ui.pause();
                                         }
                                         break;
+
                                     case "3":
                                         ui.printProjectEmployees(app,selection);
                                         ui.pause();
