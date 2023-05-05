@@ -27,6 +27,7 @@ public class UI {
         System.out.println("Please select an option");
         System.out.println("Enter a number:");
         System.out.println("00. Exit program");
+        System.out.println("0. Log out");
         System.out.println("1. Create a new Project");
         System.out.println("2. List all Projects");
         System.out.println("3. List all Employees");
@@ -149,15 +150,11 @@ public class UI {
         try {
             app.addEmployee(new Employee("John Doe", "jodo"));
         }
-        catch (OperationNotAllowedException e){
-
-        }
+        catch (OperationNotAllowedException e){ }
         try {
             app.addEmployee(new Employee("Jane Doe", "jado"));
         }
-        catch (OperationNotAllowedException e){
-
-        }
+        catch (OperationNotAllowedException e){ }
 
         // Instantiate projects for testing
         app.createProject("Project 1",23001);
@@ -187,10 +184,26 @@ public class UI {
             ui.pause();
             // Main menu
             while (true) {
+                if(!app.isUserLoggedIn()) {
+                    System.out.println("Welcome to Softwarefirmaet A/S!");
+                    System.out.println("Enter your initials: ");
+                    input = scanner.nextLine();
+                    if(app.userLogin(input)) {
+                        System.out.println("Hello, " + input + "!");
+                        ui.pause();
+                    } else {
+                        System.out.println("Invalid credentials, terminating.");
+                        break;
+                    }
+                }
                 ui.printMainOptions();
                 input = scanner.nextLine();
                 switch (input) {
                     case "00":
+                        break;
+                    case "0":
+                        app.userLogout();
+                        input="";
                         break;
                     case "1":
                         System.out.println("Enter a project name");
@@ -198,9 +211,15 @@ public class UI {
                         String projectName = input;
                         System.out.println("Enter a project ID");
                         input = scanner.nextLine();
+                        if(!input.matches("\\d+")) {
+                            System.out.println("Input is not an integer, please try again");
+                            ui.pause();
+                            break;
+                        }
                         int projectID = Integer.parseInt(input);
                         app.createProject(projectName,projectID);
                         ui.printProjects(app);
+                        ui.pause();
                         break;
                     case "2":
                         ui.printProjects(app);
@@ -214,6 +233,11 @@ public class UI {
                         ui.printProjects(app);
                         System.out.println("Choose a project to View or edit");
                         input = scanner.nextLine();
+                        if(!input.matches("\\d+")) {
+                            System.out.println("Input is not an integer, please try again");
+                            ui.pause();
+                            break;
+                        }
                         // it is necessary to parse to int in order to control that the user input is not out of bounds with the projects list
                         int selection = Integer.parseInt(input);
                         if (selection > 0 && selection <= app.projects.size()) {
@@ -242,6 +266,7 @@ public class UI {
                                             startW = Integer.parseInt(startWeek);
                                         } else {
                                             System.out.println("Input is not an integer, please restart");
+                                            ui.pause();
                                             break;
                                         }
                                         System.out.println("Please enter the week the activity is due");
@@ -251,6 +276,7 @@ public class UI {
                                             dueW = Integer.parseInt(dueWeek);
                                         } else {
                                             System.out.println("Input is not an integer, please restart");
+                                            ui.pause();
                                             break;
                                         }
                                         System.out.println("Please enter the hour budget of the activity");
@@ -260,6 +286,7 @@ public class UI {
                                             hourBudget = Integer.parseInt(dueWeek);
                                         } else {
                                             System.out.println("Input is not an integer, please restart");
+                                            ui.pause();
                                             break;
                                         }
                                         GregorianCalendar startWeek = ui.dateConverter(2023, startW);
@@ -291,6 +318,11 @@ public class UI {
                                                         ui.printAppEmployees(app);
                                                         System.out.println("Please select an Employee");
                                                         input = scanner.nextLine();
+                                                        if(!input.matches("\\d+")) {
+                                                            System.out.println("Input is not an integer, please try again");
+                                                            ui.pause();
+                                                            break;
+                                                        }
                                                         int selectedEmployee = Integer.parseInt(input);
                                                         if(app.projects.get(selection-1).activities.get(selectActivity-1).checkEmployeeList(app.getEmployees().get(selectedEmployee - 1))) {
                                                             System.out.println("This Employee is already added to this activity. Returning");
@@ -337,8 +369,12 @@ public class UI {
                                         ui.printAppEmployees(app);
                                         System.out.println("Please select the number of the employee you wish to add");
                                         input = scanner.nextLine();
+                                        if(!input.matches("\\d+")) {
+                                            System.out.println("Input is not an integer, please try again");
+                                            ui.pause();
+                                            break;
+                                        }
                                         int selectEmployee = Integer.parseInt(input);
-
                                         if (selectEmployee > 0 && selectEmployee <= app.getEmployees().size()) {
                                             if(app.projects.get(selection-1).checkEmployeeList(app.getEmployees().get(selectEmployee-1))) {
                                                 System.out.println("This Employee is already added to this Project. Returning");
@@ -355,6 +391,7 @@ public class UI {
                                         }
                                         break;
                                     case "5":
+                                        //Code should probably be put in a method of its own
                                         int hoursSpent = 0;
                                         int hoursBudget = 0;
                                         for (int i = 0; i < app.projects.get(selection-1).activities.size();i++) {

@@ -138,7 +138,10 @@ public class ProjectsApp extends Observable {
 		}
 		return userloggedin;
 	}
-
+	public boolean userLogout() {
+		userloggedin=false;
+		return userloggedin;
+	}
 	public void setDateServer(DateServer dateServer) {
 		this.dateServer = dateServer;
 		
