@@ -15,56 +15,59 @@ public class Project {
 	private int projectNumber;
 	private Calendar dueDate;
 	private Calendar startDate;
-	private int id; 
-	
+	private int id;
 
-	
+
 	public Project (String projectName, int id) {
 		this.projectName = projectName;
 		this.id = id;
 	}
-	
+
 	public void addActivityToProject(Activity activity) {
 		activities.add(activity);
 	}
-	
+
 	public String getProjectName() {
 		return projectName;
 	}
+
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	
+
 	public void setProjectLeader(Employee employee) {
 		this.projectLeader = employee;
 	}
+
 	public Employee getProjectLeader() {
 		return projectLeader;
 	}
-	
+
 	public int getProjectNum() {
 		return projectNumber;
 	}
+
 	public int getProjectId() {
 		return id;
 	}
+
 	public void setProjectId(int id) {
 		this.id = id;
 	}
-	
+
 	public void addActivity(Activity activity)  {
 		activities.add(activity);
-		
+
 	}
-	
-	
+
+
 	public void projectLeaderCheck(String projectLeaderInit) throws NotProjectLeaderException {
 		if (this.projectLeader == null || projectLeaderInit == null
                 || !this.projectLeader.getInitials().equals(projectLeaderInit)){
 			throw new NotProjectLeaderException("You are not the Project Leader");
 		}
 	}
-	
+
 	public Activity getActivityByName(String activityName) throws ActivityNotFound {
 		Optional<Activity> r = activities.stream().filter(b -> b.getActivName().equals(activityName)).findFirst();
         if (!r.isPresent()) {
@@ -72,18 +75,27 @@ public class Project {
         }
         return (Activity) r.get();
 	}
-	
-	
+
+
 	public Calendar getStartDate() {
 		return startDate;
-		
+
 	}
-	
+
 	public Calendar getDueDate() {
 		return dueDate;
-		
+
 	}
     public boolean checkEmployeeList(Employee employee) {
         return employees.contains(employee);
     }
+
+	public boolean checkActivityList(String name) {
+		for(int i = 0; i < activities.size(); i++) {
+			if(name.equals(activities.get(i).getActivName())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

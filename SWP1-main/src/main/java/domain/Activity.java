@@ -89,5 +89,4 @@ public class Activity {
     public boolean checkEmployeeList(Employee employee) {
         return employees.contains(employee);
     }
-
 }

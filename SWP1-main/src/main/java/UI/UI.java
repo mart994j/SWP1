@@ -141,6 +141,7 @@ public class UI {
             System.out.println("Invalid input, please enter a valid project number");
         }
     }
+
     public static void main(String[] args) {
         // Instantiate UI
         UI ui = new UI();
@@ -256,6 +257,12 @@ public class UI {
                                         System.out.println("Please name the activity");
                                         input = scanner.nextLine();
                                         String name = input;
+                                        if(app.projects.get(selection-1).checkActivityList(name)) {
+                                            System.out.println("An activity with this name already exists, please try again");
+                                            input = "";
+                                            ui.pause();
+                                            break;
+                                        }
                                         int startW;
                                         int dueW;
                                         int hourBudget;
@@ -339,9 +346,15 @@ public class UI {
                                                     case "3":
                                                         System.out.println("Please enter hours spent");
                                                         input = scanner.nextLine();
+                                                        if(!input.matches("\\d+")) {
+                                                            System.out.println("Input is not an integer, please try again");
+                                                            ui.pause();
+                                                            break;
+                                                        }
                                                         int hours = Integer.parseInt(input);
                                                         app.projects.get(selection-1).activities.get(selectActivity-1).addHoursSpent(hours);
                                                         System.out.println(hours + " Hours added,");
+                                                        ui.pause();
                                                         break;
                                                     case "4":
                                                         System.out.println("Time data for activity: " + app.projects.get(selection-1).activities.get(selectActivity-1).getActivName());
@@ -378,6 +391,7 @@ public class UI {
                                         if (selectEmployee > 0 && selectEmployee <= app.getEmployees().size()) {
                                             if(app.projects.get(selection-1).checkEmployeeList(app.getEmployees().get(selectEmployee-1))) {
                                                 System.out.println("This Employee is already added to this Project. Returning");
+                                                ui.pause();
                                                 break;
                                             } else {
                                                 app.projects.get(selection-1).employees.add(app.getEmployees().get(selectEmployee-1));
