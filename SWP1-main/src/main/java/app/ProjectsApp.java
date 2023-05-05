@@ -36,7 +36,7 @@ public class ProjectsApp extends Observable {
     public boolean projectExists (int id) {
         if (getProjectList().contains(id)) {
             projectexist=true;
-        } else {
+        } else { 
             projectexist=false;
         }
         return projectexist;

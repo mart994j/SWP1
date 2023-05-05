@@ -94,10 +94,10 @@ public class ActivitySteps {
     }
     
     @Then("the expected time budget changes	to {int}")
-    public void theExpectedTimeBudgetChangesTo(Integer int1) {
+    public void theExpectedTimeBudgetChangesTo(double int1) {
         Activity activity = activityHolder.getActivity();
         activity = new Activity(null, null, null, int1);
-        int expectedBudget = activity.getExpectedAmountOfHours();
+        double expectedBudget = activity.getExpectedAmountOfHours();
         assertEquals(expectedBudget, activity.getExpectedAmountOfHours());
     }
     
