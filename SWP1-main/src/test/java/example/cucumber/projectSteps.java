@@ -52,4 +52,33 @@ public class projectSteps {
 		Project project = projectHolder.getProject();
 		assertNotNull(project.getProjectId());
 	}
+	
+	
+	@Given("that a project with the name {string} exists")
+	public void thatAProjectWithTheNameExists(String name) {
+		Project project = projectHolder.getProject();
+		ProjectsApp projectApp = projectAppHolder.getProjectsApp();
+
+		project = new Project(name, 0);
+		project.setProjectName(name);
+		projectApp.projects.add(project);
+		assertTrue(projectApp.projects.contains(project));
+	}
+
+	@When("a user searches for the project {string}")
+	public void aUserSearchesForTheProject(String name) {
+		ProjectsApp projectsApp = projectAppHolder.getProjectsApp();
+	    Project project = projectsApp.getProjectWithName(name);
+	    projectHolder.setProject(project);
+	}
+
+	@Then("the project {string} is found")
+	public void theProjectIsFound(String name) {
+		Project project = projectHolder.getProject();
+	    assertNotNull(project);
+	    assertEquals(name, project.getProjectName());
+	}
+	
+	
+	
 }

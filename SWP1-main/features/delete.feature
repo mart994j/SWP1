@@ -1,4 +1,4 @@
-Feature: Delete 
+Feature: Delete
   Description: Delete a activity
   Actors: Administrator
 
@@ -15,9 +15,9 @@ Feature: Delete
     Given an employee with the initials "SWA" exists.
     And the admin deletes the employee
     Then the employee has been deleted
-    
-    
-    Scenario: Delete a project successfully
+
+
+  Scenario: Delete a project successfully
   
       #Given the admin is logged in
     Given a project with the id 1 exists.

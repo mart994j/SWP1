@@ -1,5 +1,5 @@
 Feature: Userloggedin
-  Description: 
+  Description:
 
   Actor: Employee
 
@@ -9,8 +9,8 @@ Feature: Userloggedin
     Then the user login succeds
     And the user is logged in
 
-	Scenario: A user logs in with wrong initials
-		Given that a user exists
+  Scenario: A user logs in with wrong initials
+    Given that a user exists
     And initials is "wrong"
     Then the user login fails
     And the user is not logged in

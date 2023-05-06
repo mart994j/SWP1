@@ -5,7 +5,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import app.OperationNotAllowedException;
-import app.ProjectsApp;
 
 public class Activity {
 	private String activName;
@@ -47,6 +46,7 @@ public class Activity {
 		return employees;
 
 	}
+  
     
     public GregorianCalendar getStartW() {
 		return startW;
@@ -85,8 +85,13 @@ public class Activity {
     public void assignEmp(Employee employee) {
     	employees.add(employee);
     }
+
+	
     
-    public boolean checkEmployeeList(Employee employee) {
-        return employees.contains(employee);
-    }
+
+
+    
+    
+	
+
 }

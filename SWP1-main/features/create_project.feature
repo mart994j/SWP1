@@ -9,6 +9,11 @@ Feature: create project
     When an employee creates the project.
     Then a project with the name "Test project" is created successfully.
     And the project gets given a project id.
+    
+   Scenario: Find a project with the name  "UI til DTU"
+   	Given that a project with the name "UI til DTU" exists
+   	When a user searches for the project "UI til DTU"
+   	Then the project "UI til DTU" is found
 
 
 

@@ -84,6 +84,15 @@ public class ProjectsApp extends Observable {
 		return true;
 	}
 
+	public Employee getEmployeeWithName(String name){
+		for (Employee e : employees) {
+			if(name.equals(e.getName())){
+				return e;
+			}
+		}
+		return null;
+	}
+
 	public List<String> getInitialsList() {
 		List<String> employeeInit = new ArrayList<>();
 		for (Employee e : employees) {
@@ -95,27 +104,34 @@ public class ProjectsApp extends Observable {
 	public List<Employee> getEmployees() {
 		return employees;
 	}
-	
-	
+
+
 	public boolean empExists (String initials) {
 		if (getInitialsList().contains(initials)) {
-            empexist=true;
-        } else {
-            empexist=false;
-        }
-        return empexist;
-    }
+			empexist=true;
+		} else {
+			empexist=false;
+		}
+		return empexist;
+	}
 
-    public boolean deleteEmp (String initials) {
-        int remp=getInitialsList().indexOf(initials);
-        employees.remove(remp);
-        empExists(initials);
-        return empexist;
-    }
-	
-	
+	public boolean deleteEmp (String initials) {
+		int remp=getInitialsList().indexOf(initials);
+		employees.remove(remp);
+		empExists(initials);
+		return empexist;
+	}
 
-//Tjekker om om initals opfylder max 4 initialer
+	public boolean checkMaxActivites(Employee employee){
+		if(employee.empActvities.size() < 20){
+			return true;
+		}
+		return false;
+	}
+
+
+
+	//Tjekker om om initals opfylder max 4 initialer
 	public boolean checkInitials(Employee employee) {
 		if (employee.getInitials().length() > 5) {
 			return false;
@@ -138,10 +154,7 @@ public class ProjectsApp extends Observable {
 		}
 		return userloggedin;
 	}
-	public boolean userLogout() {
-		userloggedin=false;
-		return userloggedin;
-	}
+
 	public void setDateServer(DateServer dateServer) {
 		this.dateServer = dateServer;
 		
