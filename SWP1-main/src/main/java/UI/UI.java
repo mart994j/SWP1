@@ -332,6 +332,11 @@ public class UI {
                                         }
                                         System.out.println("Please enter the starting week of the activity");
                                         input = scanner.nextLine();
+                                        if (Integer.parseInt(input)<1 || Integer.parseInt(input)>52) {
+                                        	System.out.println("Invalid week number, pls try again.");
+                                        	ui.pause();
+                                        	break;
+                                        }
                                         if (input.matches("\\d+")) {
                                             String startWeek = input;
                                             startW = Integer.parseInt(startWeek);
@@ -342,6 +347,12 @@ public class UI {
                                         }
                                         System.out.println("Please enter the week the activity is due");
                                         input = scanner.nextLine();
+                                        if (Integer.parseInt(input)<1 || Integer.parseInt(input)>52) {
+                                        	System.out.println("Invalid week number, pls try again.");
+                                        	ui.pause();
+                                        	break;
+                                        }
+                                        
                                         if (input.matches("\\d+")) {
                                             String dueWeek = input;
                                             dueW = Integer.parseInt(dueWeek);
@@ -503,7 +514,7 @@ public class UI {
                                         System.out.println("Budgeted Hours: " + hoursBudget);
                                         System.out.println("Hours Spent: " + hoursSpent);
                                         ui.pause();
-                                        ui.pause();
+                                     
                                         break;
                                     case "6":
                                     	 System.out.println("Please provide admin password");

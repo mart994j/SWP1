@@ -114,11 +114,13 @@ public class ProjectsApp extends Observable {
 
 
 	public boolean empExists (String initials) {
+		assert initials != null : "Precondition";
 		if (getInitialsList().contains(initials)) {
 			empexist=true;
 		} else {
 			empexist=false;
 		}
+		assert (getInitialsList().contains(initials)) || (!getInitialsList().contains(initials)) : "Postcondition";
 		return empexist;
 	}
 
@@ -153,9 +155,11 @@ public class ProjectsApp extends Observable {
 		return userloggedin;
 	}
 	public boolean userLogin(String initials) {
+		assert initials != null;
 		for (Employee employee:employees) {
 			userloggedin = initials.equals(employee.getInitials());
 			if(userloggedin != false) {
+				assert initials.equals(employee.getInitials());
 				return userloggedin;
 			}
 		}

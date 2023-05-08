@@ -70,19 +70,6 @@ public class Activity {
         }
     }
 
-  /*  public void setStartWeek(GregorianCalendar newStartWeek) throws OperationNotAllowedException {
-        if (newStartWeek.after(endW)) {
-            throw new OperationNotAllowedException("The start week must be before the end week");
-        }
-        this.startW = newStartWeek;
-    }
-
-    public void setEndWeek(GregorianCalendar newEndWeek) throws OperationNotAllowedException {
-        if (newEndWeek.before(startW)) {
-            throw new OperationNotAllowedException("The end week must be after the start week");
-        }
-        this.endW = newEndWeek;
-    }*/
 
     public void setActivName(String activName) {
         this.activName = activName;
